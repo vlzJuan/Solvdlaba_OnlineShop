@@ -44,7 +44,7 @@ public class CartProduct implements IndexableByMenu {
      * @return  the total cost of this product.
      */
     public double totalCost(){
-       return (double) this.units * this.referenceProduct.getCost();
+        return (double) this.units * this.referenceProduct.getCost();
     }
 
 
@@ -100,8 +100,14 @@ public class CartProduct implements IndexableByMenu {
     }
 
 
+
     @Override
     public String descriptorForMenu() {
-        return this.toString();
+        return format("%s (up to %d units), cost/u: $%.2f",
+                this.referenceProduct.productName,
+                this.referenceProduct.getStock(),
+                this.referenceProduct.getCost());
     }
+
+
 }
