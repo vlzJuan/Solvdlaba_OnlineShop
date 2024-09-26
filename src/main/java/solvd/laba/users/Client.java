@@ -7,6 +7,7 @@ import solvd.laba.siteutilities.Cart;
 import solvd.laba.siteutilities.Order;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 /**
  * Class corresponding to a regular user from the E-commerce site.
@@ -23,7 +24,7 @@ public final class Client extends User implements CanPayPurchase {
 
     // MODIFICAR para que use OrderID
     private ArrayList<Order> purchaseHistory;   //  Attribute that stores this user's
-                                                //  purchases on the site so far.
+    //  purchases on the site so far.
     /**
      * Inherits its behaviour from the User parent class.
      * Public constructor for a User. requires a userName and
@@ -94,5 +95,12 @@ public final class Client extends User implements CanPayPurchase {
     public double balance(){
         return this.payment.getBalance();
     }
+
+
+    Stream<Order> purchaseHistoryStream(){
+        return this.purchaseHistory.stream();
+    }
+
+
 
 }
