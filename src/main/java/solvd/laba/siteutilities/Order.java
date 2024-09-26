@@ -1,5 +1,6 @@
 package solvd.laba.siteutilities;
 
+import solvd.laba.enums.OrderStatus;
 import solvd.laba.users.Client;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public class Order {
     public final LocalDate orderDate;
     public final Client buyer;
     public final String orderDescription;
-
+    private OrderStatus status;
 
     /**
      * Default constructor for an order. It requires a cart, to generate
@@ -29,14 +30,29 @@ public class Order {
         this.orderDate = LocalDate.now();
         this.buyer = client;
         this.orderDescription = purchased.toString();
+        this.status = OrderStatus.PENDING;
     }
 
 
     @Override
     public String toString(){
-
         return format("Order at %s, purchased by %s\n", this.orderDate, this.buyer.toString()) +
+                "Status: " + status.toString() +
                 format("Order description: \n%s", this.orderDescription);
     }
+
+
+    public void prepared(){
+        if(status.equals(OrderStatus.PENDING)){
+            status = OrderStatus.CONFIRMED;
+        }
+    }
+
+    public void delivered(){
+        if(status.equals(OrderStatus.CONFIRMED)){
+            status = OrderStatus.DELIVERED;
+        }
+    }
+
 
 }
