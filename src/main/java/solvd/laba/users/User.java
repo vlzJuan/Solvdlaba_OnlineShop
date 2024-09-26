@@ -26,14 +26,17 @@ public abstract class User {
 
     //  Getters:
 
-    public final String getPassword(){
-        return this.password;
+    public boolean validateUser(String username, String attemptedPassword){
+        return this.userName.equals(username) && this.password.equals(attemptedPassword);
     }
 
-    //  Setters:
-
-    public final void setPassword(String password){
-        this.password = password;
+    public final boolean setPassword(String previousPassword, String newPassword){
+        boolean ret = false;
+        if(previousPassword.equals(this.password)){
+            ret = true;
+            this.password = newPassword;
+        }
+        return ret;
     }
 
 
