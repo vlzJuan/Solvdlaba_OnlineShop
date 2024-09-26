@@ -1,6 +1,7 @@
 package solvd.laba.products;
 
 import solvd.laba.interfaces.IndexableByMenu;
+import solvd.laba.interfaces.HasCost;
 
 import static java.lang.String.format;
 
@@ -8,7 +9,7 @@ import static java.lang.String.format;
  *  Class corresponding to a wrapper for a product from the inventory.
  *  ALL instances of this class must be instantiated with an existing product.
  */
-public class CartProduct implements IndexableByMenu {
+public class CartProduct implements IndexableByMenu, HasCost {
 
     //  Attributes:
     public Product referenceProduct;    //  A product already in the inventory
@@ -43,7 +44,7 @@ public class CartProduct implements IndexableByMenu {
      *
      * @return  the total cost of this product.
      */
-    public double totalCost(){
+    public double getCost(){
         return (double) this.units * this.referenceProduct.getCost();
     }
 
@@ -56,7 +57,7 @@ public class CartProduct implements IndexableByMenu {
     @Override
     public String toString(){
         return format("Product name: %s, Units in cart: %d, Cost per unit: %.2f",
-                this.referenceProduct.productName, this.units, this.totalCost());
+                this.referenceProduct.productName, this.units, this.getCost());
     }
 
     /**

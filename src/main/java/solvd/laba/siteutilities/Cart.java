@@ -1,6 +1,7 @@
 package solvd.laba.siteutilities;
 
 
+import solvd.laba.interfaces.HasCost;
 import solvd.laba.interfaces.Purchasable;
 import solvd.laba.interfaces.SearchableStorage;
 import solvd.laba.products.CartProduct;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * Class associated with a Shopping cart for the E-commerce site.
  */
 public class Cart extends Container<CartProduct>
-        implements Purchasable, SearchableStorage<CartProduct> {
+        implements Purchasable, HasCost, SearchableStorage<CartProduct> {
 
     public boolean stateOfPurchase;
     public boolean stateOfDelivery; //
@@ -84,10 +85,10 @@ public class Cart extends Container<CartProduct>
     }
 
 
-    public double totalCost(){
+    public double getCost(){
         double cost = 0.0;
         for(CartProduct prod:this.inventory){
-            cost = cost + prod.totalCost();
+            cost = cost + prod.getCost();
         }
         return cost;
     }

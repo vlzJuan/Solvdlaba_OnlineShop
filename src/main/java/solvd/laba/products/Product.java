@@ -1,20 +1,23 @@
 package solvd.laba.products;
 
 
+import solvd.laba.enums.ProductCategory;
 import solvd.laba.exceptions.NotEnoughStockException;
 import solvd.laba.interfaces.IndexableByMenu;
+import solvd.laba.interfaces.HasCost;
 
 import static java.lang.String.format;
 
 /**
  *  Class corresponding to a product from the E-commerce store.
  */
-public class Product implements IndexableByMenu {
+public class Product implements IndexableByMenu, HasCost {
 
     //  Attributes:
     public String productName;  //  The name of the product.
     private int stock;          //  The amount of this product in stock.
-    private double cost;        //  The cost of this product
+    private final double cost;        //  The cost of this product
+    private final ProductCategory category;
 
     /**
      * Constructor for a Product. It requires its name, and the initial
@@ -25,10 +28,11 @@ public class Product implements IndexableByMenu {
      * @param cost          , the basic cost of this product.
      */
     public Product(String productName, int initialStock,
-                   double cost){
+                   double cost, ProductCategory category){
         this.productName = productName;
         this.stock = initialStock;
         this.cost = cost;
+        this.category = category;
     }
 
 
@@ -139,13 +143,15 @@ public class Product implements IndexableByMenu {
     public String descriptorForMenu() {
         return format("%s (up to %d units), cost/u: $%.2f",this.productName, this.stock, this.cost);
     }
-
     public int getStock(){
         return this.stock;
     }
-
-
     public double getCost() {
         return this.cost;
     }
+    public ProductCategory getCategory(){
+        return this.category;
+    }
+
+
 }
