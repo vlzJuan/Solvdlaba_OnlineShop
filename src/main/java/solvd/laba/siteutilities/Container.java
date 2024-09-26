@@ -8,6 +8,8 @@ import solvd.laba.interfaces.SearchableStorage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.lang.String.format;
 
@@ -89,6 +91,7 @@ public abstract class Container<T extends IndexableByMenu> implements Searchable
         int i=0;
         for(T object:inventory){
             retornable.append(i + " - " + object.descriptorForMenu() + "\n");
+            i = i+1;
         }
         retornable.append("'-1' - Exit the menu.\n");
         return retornable.toString();
@@ -141,6 +144,25 @@ public abstract class Container<T extends IndexableByMenu> implements Searchable
     public int size(){
         return this.inventory.size();
     }
+
+
+    /**
+     * Stream used for the inventory.
+     * @return a stream of all the elements within the inventory
+     */
+    public Stream<T> containedItemsStream(){
+        return this.inventory.stream();
+    }
+
+
+    public Stream<String> menuDescriptorIndexedStream() {
+        // Create an IntStream for indices and map them to their respective descriptors
+        return IntStream.range(0, inventory.size())
+                .mapToObj(i -> i + " - " + inventory.get(i).descriptorForMenu());
+    }
+
+
+
 
 
 }

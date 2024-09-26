@@ -1,6 +1,7 @@
 package solvd.laba.siteutilities;
 
 
+import solvd.laba.enums.ProductCategory;
 import solvd.laba.exceptions.ItemNotInStockException;
 import solvd.laba.exceptions.NotEnoughStockException;
 import solvd.laba.products.Product;
@@ -8,16 +9,15 @@ import solvd.laba.products.Product;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * Class dedicated for the inventory stock for the site.
  * This might be easily replaced with access to a Database way down in this course.
  */
 public class Inventory extends Container<Product> {
-
-
-
-    /**
+    /*
      * Constructor for an inventory, with only a list of products to initialize it.
      * It initializes the creation date as the date on which the object is instantiated.
      *
@@ -100,7 +100,14 @@ public class Inventory extends Container<Product> {
         return super.menuDescriptor("Select the object to choose:\n");
     }
 
+    public Predicate<Product> isFromCategory(ProductCategory category){
+        return product -> product.getCategory() == category;
+    }
 
+
+    public Stream<Product> containedItemsStream(ProductCategory filterCategory) {
+        return super.containedItemsStream().filter(isFromCategory(filterCategory));
+    }
 
 
 }
