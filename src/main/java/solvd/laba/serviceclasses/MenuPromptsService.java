@@ -1,4 +1,5 @@
 package solvd.laba.serviceclasses;
+import solvd.laba.enums.ProductCategory;
 import solvd.laba.exceptions.IndexOutOfRangeException;
 import solvd.laba.exceptions.NotEnoughStockException;
 import solvd.laba.interfaces.SearchableStorage;
@@ -27,7 +28,7 @@ public class MenuPromptsService {
         int stock = promptInt("Enter the new product's initial stock: ");
         double cost = promptDouble("Enter the new product's cost");
 
-        return new Product(name, stock, cost);
+        return new Product(name, stock, cost, ProductCategory.UNDEFINED);
     }
 
 
@@ -74,7 +75,9 @@ public class MenuPromptsService {
         int ret = -2;
         boolean loopFlag = true;
         while(loopFlag) {
-            System.out.println(storage.menuDescriptor());
+            // Constructed the menu from a stream instead of a string in the class.
+            System.out.println("Input the corresponding number to select the item (input '-1' to exit):");
+            storage.menuDescriptorIndexedStream().forEach(line -> System.out.println(line));
             try {
                 ret = scan.nextInt();
                 loopFlag = false;
@@ -95,7 +98,7 @@ public class MenuPromptsService {
         while(menuFlag){
 
             System.out.println("User balance: " + client.balance());
-            System.out.println("Current cart cost: "+ cart.totalCost());
+            System.out.println("Current cart cost: "+ cart.getCost());
 
             int retrievedIndex = promptMenuLoop(inventory);
             if(retrievedIndex ==-1){
@@ -123,13 +126,17 @@ public class MenuPromptsService {
 
         }
 
-
-
-
-
     }
 
 
+
+    // Constructor de menu usando un stream, en vez del toString.
+    //static Consumer<Stream<? extends IndexableByMenu>> constructMenuFromStream = stream -> {
+    //    List<? extends IndexableByMenu> aux = stream.toList();
+    //    for (int i = 0; i < aux.size(); i++) {
+    //        System.out.println(i + " - " + aux.get(i).descriptorForMenu());
+    //    }
+    //};
 
 
 
