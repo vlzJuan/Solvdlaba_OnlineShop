@@ -159,7 +159,7 @@ public class LinkedList<E> {
     }
 
     public String toString(){
-        StringBuilder ret = new StringBuilder("Lista: {\n");
+        StringBuilder ret = new StringBuilder("List: {\n");
         Node current = head;
         if (head == null){
             ret.append("{Lista vacia}");
